@@ -8,7 +8,7 @@ app.get("/", (req, res) => {
     res.send({hi:"there"});
 });//execute a route handler with express
 
-const PORT = process.env.PORT || 5000//default if no env_var in Heroku
+const PORT = process.env.PORT || 5000;//default if no env_var in Heroku
 app.listen(5000);
 //app: Express App to register this route handler with
 //get: creae new route handler that whatch for incoming http request with this method
