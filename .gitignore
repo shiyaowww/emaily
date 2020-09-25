@@ -1,0 +1,2 @@
+node_modules
+# tell git not to attempt to commit the entire folder of node modules
