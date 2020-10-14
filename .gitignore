@@ -1,4 +1,3 @@
 node_modules
 dev.js
-
-# tell git not to attempt to commit the entire folder of node modules
+.DS_Store
