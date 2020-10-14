@@ -1,22 +1,31 @@
 //Created by: Shiyao Wang
 //Sep 18, 2020
+//console.developers.google.com/
 
 const express = require("express");
-const app = express(); //generate a new app that represent a running express app
+const mongoose = require("mongoose");
+const cookieSession = require("cookie-session");
+const passport = require("passport");
+const keys = require("./config/keys");
+require("./models/User");
+require("./services/passport");
 
-app.get("/", (req, res) => {
-    res.send({hi:"there"});
-}); //execute a route handler with express
+mongoose.connect(keys.mongoURI);
 
-const PORT = process.env.PORT || 5000; //default if no env_var in Heroku
+const app = express(); 
+
+app.use(
+  cookieSession({
+    maxAge: 30 * 24 * 60 * 60 * 1000,//cookies lasting 30 days
+    keys: [keys.cookieKey]
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+require("./routes/authRoutes")(app);
+
+const PORT = process.env.PORT || 5000; 
 app.listen(PORT);
-//app: Express App to register this route handler with
-//get: creae new route handler that whatch for incoming http request with this method
-//express have access to get, post, put, delete, patch methods, all of them accociated with some intent
-// /:watch for requests tring to access "/" 
-//req: request, js object representing incoming request
-//res: response, data about to be sent back to whoever made the incoming request
-//body of the function, res.send({})immediatedly send some JSON back to who ever made this request
-//app.listen（）: instruct express to tell node that it wants to listen for incoming traffic on port 5000
-
 
